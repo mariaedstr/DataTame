@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'datatame.datatame_app',
+
 
 ]
 
