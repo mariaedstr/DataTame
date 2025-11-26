@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro Atleta - DataTâme{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-lg mt-5" style="border-radius: 1rem; background-color: #1a3b5d;">
+      <div class="card-body p-5 text-white">
+        <h2 class="card-title text-center mb-4">Cadastro de Atleta</h2>
+        <form method="post">
+          {% csrf_token %}
+
+          <!-- Nome -->
+          <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" placeholder="Digite o nome do atleta" required>
+          </div>
+
+          <!-- Idade -->
+          <div class="mb-3">
+            <label class="form-label">Idade</label>
+            <input type="number" name="idade" class="form-control" placeholder="Ex: 22" required>
+          </div>
+
+          <!-- Categoria de Peso -->
+          <div class="mb-3">
+            <label class="form-label">Categoria de Peso</label>
+            <input type="text" name="categoria_peso" class="form-control" placeholder="Ex: -73kg" required>
+          </div>
+
+          <!-- Sexo -->
+          <div class="mb-3">
+            <label class="form-label">Sexo</label>
+            <select name="sexo" class="form-select" required>
+              <option value="" selected disabled>Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+            </select>
+          </div>
+
+          <!-- Equipe -->
+          <div class="mb-3">
+            <label class="form-label">Equipe</label>
+            <select class="form-select" name="equipe" required>
+              <option value="">Selecione a equipe</option>
+              {% for equipe in equipes %}
+                <option value="{{ equipe.id }}">{{ equipe.nome }}</option>
+              {% empty %}
+                <option disabled>Nenhuma equipe cadastrada</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Email/Login -->
+          <div class="mb-3">
+            <label class="form-label">Email/Login</label>
+            <input type="email" name="email" class="form-control" placeholder="exemplo@email.com" required>
+          </div>
+
+          <!-- Senha -->
+          <div class="mb-3">
+            <label class="form-label">Senha</label>
+            <input type="password" name="password" class="form-control" placeholder="Digite a senha" required>
+          </div>
+
+          <div class="d-grid gap-2 mt-4">
+            <button class="btn btn-primary btn-lg" type="submit">
+              Cadastrar
+            </button>
+            <a href="/" class="btn btn-outline-secondary btn-lg">
+              Voltar
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

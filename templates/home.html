@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Início • DataTâme{% endblock %}
+
+{% block content %}
+<div class="row align-items-center">
+  <div class="col-lg-7">
+    <h1 class="display-5 fw-bold">Bem-vindo ao DataTâme</h1>
+    <p class="lead mt-3">
+      Acompanhe dados de atletas, treinos e desempenho — tudo em um só lugar.
+    </p>
+
+    {% if user_custom %}
+      {% if user_custom.tipo == 'atleta' %}
+          <a href="{% url 'dashboard_atleta' %}" class="btn btn-primary btn-lg me-2">Ir para Dashboard</a>
+          <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-lg">Sair</a>
+      {% elif user_custom.tipo == 'equipe' %}
+          <a href="{% url 'dashboard_equipe' %}" class="btn btn-primary btn-lg me-2">Ir para Dashboard</a>
+          <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-lg">Sair</a>
+      {% endif %}
+    {% else %}
+      <a href="/login/" class="btn btn-warning btn-lg me-2">Entrar</a>
+      <a href="/signup_escolha/" class="btn btn-outline-secondary btn-lg">Criar conta</a>
+    {% endif %}
+  </div>
+
+  <div class="col-lg-5 mt-4 mt-lg-0">
+    <div class="p-4 bg-light rounded-3">
+      <h5 class="mb-3">O que você pode fazer aqui</h5>
+      <ul class="mb-0">
+        <li>Cadastrar atletas </li>
+        <li>Registrar treinos </li>
+        <li>Visualizar desempenho </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

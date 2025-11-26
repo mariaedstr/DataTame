@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block title %}Painel da Equipe - {{ equipe.nome }}{% endblock %}
+
+{% block content %}
+
+<!-- HEADER COLADO NA NAVBAR COM A MESMA COR EXATA (#0d3b66) -->
+<div style="
+    background-color: #0d3b66;
+    color: white;
+    margin-top: -5rem;
+    padding-top: 5rem;
+">
+    <div class="container py-3">
+        <div class="row align-items-center text-white">
+            <div class="col">
+                <h1 class="h5 fw-bold mb-1">
+                    <i class="bi bi-shield-fill me-2"></i>
+                    Painel da Equipe
+                </h1>
+                <div class="d-flex align-items-center gap-2 small">
+                    <span class="fw-semibold fs-5">{{ equipe.nome }}</span>
+                    <span class="opacity-80">·</span>
+                    <span class="opacity-80">Gerencie atletas e acompanhe o desempenho</span>
+                </div>
+            </div>
+            <div class="col-auto">
+                <span class="badge bg-white text-primary fw-bold px-4 py-2 rounded-pill fs-6">
+                    {{ atletas|length }} atleta{{ atletas|length|pluralize }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    <!-- CARDS DE RESUMO PREMIUM -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm rounded-4 bg-white text-center p-4 hover-lift">
+                <div class="card-body">
+                    <h6 class="text-muted fw-semibold text-uppercase small">Total de Atletas</h6>
+                    <h2 class="mt-3 mb-0 text-primary fw-black">{{ atletas|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm rounded-4 bg-white hover-lift">
+                <div class="card-body text-center">
+                    <h6 class="text-muted fw-semibold text-uppercase small">Lutas Registradas</h6>
+                    <h2 class="mt-3 mb-2 text-dark fw-black">{{ total_lutas }}</h2>
+                    <a href="{% url 'listar_lutas' %}" class="text-primary fw-semibold small stretched-link">
+                        Ver todas as lutas →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{% url 'registrar_luta' %}" class="btn btn-success w-100 h-100 d-flex align-items-center justify-content-center rounded-4 shadow-sm fs-5 fw-semibold hover-lift">
+                <i class="bi bi-plus-circle-fill me-2"></i>
+                Registrar Nova Luta
+            </a>
+        </div>
+    </div>
+
+    <!-- LISTA DE ATLETAS -->
+    <div class="bg-white rounded-4 shadow-sm border p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0 fw-bold text-dark">
+                <i class="bi bi-people-fill me-2 text-primary"></i>
+                Atletas da Equipe
+            </h4>
+            <span class="text-muted small">{{ atletas|length }} cadastrado{{ atletas|length|pluralize }}</span>
+        </div>
+
+        <div class="row g-3">
+            {% for a in atletas %}
+                <div class="col-12">
+                    <a href="{% url 'analise_atleta' a.nome %}" class="text-decoration-none">
+                        <div class="athlete-card p-4 rounded-3 border bg-light hover-athlete">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-2 fw-bold text-dark">{{ a.nome }}</h5>
+                                    
+                                    {% if a.ml %}
+                                        <div class="small text-success fw-semibold">
+                                            <i class="bi bi-graph-up-arrow me-1"></i>
+                                            Desempenho ML: {{ a.ml.desempenho }}% • 
+                                            Prob. vitória: {{ a.ml.prob_vitoria }}%
+                                        </div>
+                                    {% else %}
+                                        <div class="small text-muted">
+                                            <strong>Peso:</strong> {{ a.categoria_peso }} • 
+                                            <strong>Gênero:</strong> {{ a.sexo }} • 
+                                            <strong>V/D:</strong> {{ a.vitorias }}/{{ a.derrotas }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="text-end">
+                                    <span class="badge bg-primary rounded-pill px-4 py-2 fw-bold">
+                                        {{ a.lutas.count }} luta{{ a.lutas.count|pluralize }}
+                                    </span>
+                                    <i class="bi bi-chevron-right ms-3 text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-person-x display-1 opacity-25"></i>
+                    <p class="mt-3">Nenhum atleta cadastrado ainda</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .hover-lift {
+        transition: all 0.3s ease;
+    }
+    .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(13, 51, 89, 0.15) !important;
+    }
+
+    .athlete-card {
+        transition: all 0.25s ease;
+        border: 1px solid #e9ecef !important;
+    }
+    .hover-athlete:hover {
+        background: #f8f9fa !important;
+        border-color: #0d6efd !important;
+        transform: translateX(6px);
+    }
+    .hover-athlete:hover .bi-chevron-right {
+        color: #0d6efd !important;
+        transform: translateX(4px);
+    }
+
+    .bi-chevron-right {
+        transition: all 0.3s ease;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock %}
