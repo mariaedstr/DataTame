@@ -3,13 +3,7 @@
 
 {% block content %}
 
-<!-- HEADER COLADO NA NAVBAR COM A COR EXATA (#0d3b66) -->
-<div style="
-    background-color: #0d3b66;
-    color: white;
-    margin-top: -5rem;
-    padding-top: 5rem;
-">
+<div style="background-color: #0d3b66; color: white; margin-top: -5rem; padding-top: 5rem;">
     <div class="container py-3">
         <div class="row align-items-center text-white">
             <div class="col">
@@ -34,7 +28,7 @@
 
 <div class="container py-5">
 
-    <!-- PERFIL DO ATLETA -->
+    <!-- PERFIL DO ATLETA (igualzinho) -->
     <div class="bg-white rounded-4 shadow-sm border p-5 mb-5">
         <h4 class="fw-bold text-dark mb-4">
             <i class="bi bi-person-circle text-primary me-2"></i>
@@ -70,51 +64,49 @@
 
     <div class="row g-5">
 
-        <!-- INSIGHTS DO MACHINE LEARNING -->
+        <!-- INSIGHTS DO MACHINE LEARNING (só mudei aqui dentro) -->
         <div class="col-lg-6">
             <div class="card border-0 shadow-sm rounded-4 h-100 bg-gradient border-start border-primary border-5">
                 <div class="card-body p-5">
-                    <h4 class="fw-bold text-dark mb-4">
-                        <i class="bi bi-cpu-fill text-primary me-2"></i>
-                        Insights
-                    </h4>
+
+                    <!-- Título + acurácia pequena no canto -->
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <h4 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-cpu-fill text-primary me-2"></i>
+                            Insights
+                        </h4>
+                        <span style="background:#00ff9d;color:#000;font-weight:bold;font-size:13px;padding:4px 11px;border-radius:20px;">
+                            {{ resultados.acuracia|default:"—" }}%
+                        </span>
+                    </div>
 
                     <div class="mb-4">
                         <div class="text-muted small fw-semibold text-uppercase mb-2">Arma Principal</div>
-
                         <div class="p-4 bg-white rounded-4 shadow-sm fs-5 fw-semibold text-success">
                             {{ resultados.arma_principal.nome|default:"Ainda não analisado" }}
-                        
-
-                          <div class="text-muted small">
-                              {{ resultados.arma_principal.analise }}
-                          </div>
+                            <div class="text-muted small mt-2" style="opacity:0.7;font-size:13px;">
+                                {{ resultados.arma_principal.analise }}
+                            </div>
                         </div>
                     </div>
-
 
                     <div class="mb-4">
                         <div class="text-muted small fw-semibold text-uppercase mb-2">Gap Técnico</div>
-
                         <div class="p-4 bg-white rounded-4 shadow-sm fs-5 fw-semibold text-warning">
                             {{ resultados.ponto_fraco.nome|default:"Ainda não analisado" }}
-                       
-
-                          <div class=" text-muted small">
-                              {{ resultados.ponto_fraco.conclusao }}
-                          </div>
+                            <div class="text-muted small mt-2" style="opacity:0.7;font-size:13px;">
+                                {{ resultados.ponto_fraco.conclusao }}
+                            </div>
                         </div>
                     </div>
 
-
                     <div>
                         <div class="text-muted small fw-semibold text-uppercase mb-2">Classificação Final</div>
-
                         <div class="p-4 bg-primary text-white rounded-4 shadow-sm fs-5 fw-bold">
                             {{ resultados.classificacao_final.nome|default:"Em análise..." }}
-                          <div class=" text-white small text-secondary">
-                            {{ resultados.classificacao_final.descricao }}
-                          </div>
+                            <div class="small mt-2" style="opacity:0.85;font-size:13px;">
+                                {{ resultados.classificacao_final.descricao }}
+                            </div>
                         </div>
                     </div>
 
@@ -122,7 +114,7 @@
             </div>
         </div>
 
-        <!-- HISTÓRICO DE LUTAS -->
+        <!-- HISTÓRICO DE LUTAS (100 % igual ao que você tinha) -->
         <div class="col-lg-6">
             <div class="bg-white rounded-4 shadow-sm border p-4 h-100">
                 <h4 class="fw-bold text-dark mb-4">
@@ -159,7 +151,6 @@
                         {% endfor %}
                     </div>
 
-                    <!-- Paginação preservando filtros se houver -->
                     {% if lutas.has_other_pages %}
                         <nav class="mt-4">
                             <ul class="pagination justify-content-center">
@@ -199,7 +190,6 @@
             Voltar ao Painel da Equipe
         </a>
     </div>
-
 </div>
 
 <style>
