@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Login - DataTâme{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="p-5 rounded-4 shadow-sm" style="background: #f8f9fa; width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4 fw-bold">Entrar no DataTâme</h3>
+
+        {% if erro %}
+        <div class="alert alert-danger text-center">{{ erro }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Senha</label>
+                <input type="password" class="form-control" name="senha" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-semibold mt-3" style="padding: 10px;">
+                Entrar
+            </button>
+
+            <div class="text-center mt-4">
+                <span class="text-muted">Não tem conta?</span><br>
+                <a href="/signup_atleta/" class="btn btn-outline-primary btn-sm me-2 mt-2">Cadastro Atleta</a>
+                <a href="/signup_equipe/" class="btn btn-outline-secondary btn-sm mt-2">Cadastro Equipe</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    input.form-control:focus {
+        box-shadow: 0 0 6px rgba(13, 110, 253, 0.3);
+        border-color: #0d6efd;
+    }
+    button.btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-2px);
+        transition: 0.2s;
+    }
+    a.btn-outline-primary:hover {
+        background-color: #e7f1ff;
+        transition: 0.2s;
+    }
+    a.btn-outline-secondary:hover {
+        background-color: #f0f0f0;
+        transition: 0.2s;
+    }
+</style>
+{% endblock %}

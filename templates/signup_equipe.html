@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro Equipe - DataTâme{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-lg mt-5" style="border-radius: 1rem; background-color: #1a3b5d;">
+      <div class="card-body p-5 text-white">
+        <h2 class="card-title text-center mb-4">Cadastro da Equipe</h2>
+        <form method="post">
+          {% csrf_token %}
+          
+          <!-- Nome da equipe -->
+          <div class="mb-3">
+            <label for="nome_equipe" class="form-label">Nome da Equipe</label>
+            <input type="text" class="form-control" id="nome_equipe" name="nome_equipe" placeholder="Ex: Judô Team X" required>
+          </div>
+
+          <!-- Quantidade de atletas -->
+          <div class="mb-3">
+            <label for="quantidade_atletas" class="form-label">Quantidade de Atletas</label>
+            <input type="number" class="form-control" id="quantidade_atletas" name="quantidade_atletas" min="1" required>
+          </div>
+
+          <!-- Cidade -->
+          <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+          </div>
+
+          <!-- Estado -->
+          <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <input type="text" class="form-control" id="estado" name="estado" placeholder="Ex: SP" required>
+          </div>
+
+          <!-- Email/Login -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email/Login</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="exemplo@email.com" required>
+          </div>
+
+          <!-- Senha -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password1" name="password" required>
+          </div>
+
+          <!-- Confirmação da senha -->
+          <div class="mb-4">
+            <label for="password2" class="form-label">Confirme a Senha</label>
+            <input type="password" class="form-control" id="password2" name="password2" required>
+          </div>
+
+          <!-- Botão -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-light btn-lg text-dark">Cadastrar Equipe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

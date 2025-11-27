@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Registrar Nova Luta{% endblock %}
+
+{% block content %}
+
+<!-- HEADER AZUL COLADO -->
+<div style="background-color: #0d3b66; color: white; margin-top: -5rem; padding-top: 5rem;">
+    <div class="container py-3">
+        <div class="row align-items-center text-white">
+            <div class="col">
+                <h1 class="h5 fw-bold mb-1">
+                    <i class="bi bi-plus-circle-fill me-2"></i>
+                    Registrar Nova Luta
+                </h1>
+                <div class="small opacity-90">Preencha todos os dados com atenção</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="bg-white rounded-4 shadow-sm border p-5" style="max-width: 900px; margin: 0 auto;">
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- INFORMAÇÕES PRINCIPAIS -->
+            <h4 class="fw-bold mb-4 text-primary"><i class="bi bi-info-circle me-2"></i> Informações Principais</h4>
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Atleta</label>
+                    {{ form.atleta }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Adversário</label>
+                    {{ form.adversario }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Tempo da luta (segundos)</label>
+                    {{ form.tempo_luta_segundos }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Shidos Atleta</label>
+                    {{ form.shidos_atleta }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Shidos Oponente</label>
+                    {{ form.shidos_oponente }}
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Número de pausas</label>
+                    {{ form.numero_pausas }}
+                </div>
+            </div>
+
+            <!-- REPETINDO OS GRUPOS (sem macro) -->
+            {% comment %} Ne-Waza {% endcomment %}
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-lightning-charge me-2"></i> Ne-Waza</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Tentativas (Atleta)</label>{{ form.newaza_tentativas_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Tentativas (Oponente)</label>{{ form.newaza_tentativas_op }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Atleta)</label>{{ form.newaza_acertos_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Oponente)</label>{{ form.newaza_acertos_op }}</div>
+            </div>
+
+            {% comment %} Te-Waza {% endcomment %}
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-lightning-charge me-2"></i> Te-Waza</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Tentativas (Atleta)</label>{{ form.tewaza_tentativas_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Tentativas (Oponente)</label>{{ form.tewaza_tentativas_op }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Atleta)</label>{{ form.tewaza_acertos_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Oponente)</label>{{ form.tewaza_acertos_op }}</div>
+            </div>
+
+            {% comment %} Koshi-Waza {% endcomment %}
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-lightning-charge me-2"></i> Koshi-Waza</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Tentativas (Atleta)</label>{{ form.koshiwaza_tentativas_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Tentativas (Oponente)</label>{{ form.koshiwaza_tentativas_op }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Atleta)</label>{{ form.koshiwaza_acertos_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Oponente)</label>{{ form.koshiwaza_acertos_op }}</div>
+            </div>
+
+            {% comment %} Ashi-Waza {% endcomment %}
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-lightning-charge me-2"></i> Ashi-Waza</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Tentativas (Atleta)</label>{{ form.ashiwaza_tentativas_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Tentativas (Oponente)</label>{{ form.ashiwaza_tentativas_op }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Atleta)</label>{{ form.ashiwaza_acertos_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Oponente)</label>{{ form.ashiwaza_acertos_op }}</div>
+            </div>
+
+            {% comment %} Sutemi-Waza {% endcomment %}
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-lightning-charge me-2"></i> Sutemi-Waza</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Tentativas (Atleta)</label>{{ form.sutemiwaza_tentativas_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Tentativas (Oponente)</label>{{ form.sutemiwaza_tentativas_op }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Atleta)</label>{{ form.sutemiwaza_acertos_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Acertos (Oponente)</label>{{ form.sutemiwaza_acertos_op }}</div>
+            </div>
+
+            <!-- PONTUAÇÃO OFICIAL -->
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-award me-2"></i> Pontuação Oficial</h5>
+            <div class="row g-4 mb-4">
+                <div class="col-md-4"><label class="form-label fw-semibold">Ippon (Atleta)</label>{{ form.ippon_atl }}</div>
+                <div class="col-md-4"><label class="form-label fw-semibold">Ippon (Oponente)</label>{{ form.ippon_op }}</div>
+                <div class="col-md-4"><label class="form-label fw-semibold">Wazari (Atleta)</label>{{ form.wazari_atl }}</div>
+                <div class="col-md-4"><label class="form-label fw-semibold">Wazari (Oponente)</label>{{ form.wazari_op }}</div>
+                <div class="col-md-4"><label class="form-label fw-semibold">Yuko (Atleta)</label>{{ form.yuko_atl }}</div>
+                <div class="col-md-4"><label class="form-label fw-semibold">Yuko (Oponente)</label>{{ form.yuko_op }}</div>
+            </div>
+
+            <!-- PEGADA E RESULTADO -->
+            <h5 class="fw-bold mt-5 mb-3 text-primary"><i class="bi bi-grip-horizontal me-2"></i> Pegada e Resultado</h5>
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Iniciativa Pegada (Atleta)</label>{{ form.iniciativa_pegada_atl }}</div>
+                <div class="col-md-6"><label class="form-label">Iniciativa Pegada (Oponente)</label>{{ form.iniciativa_pegada_op }}</div>
+                <div class="col-md-12">
+                    <label class="form-label fw-bold text-danger">Resultado da luta</label>
+                    {{ form.resultado }}
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 shadow-sm hover-lift">
+                    <i class="bi bi-check2-circle me-2"></i> Salvar Luta
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 12px;
+        padding: 0.65rem 1rem;
+    }
+    .form-label {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    .hover-lift {
+        transition: all 0.3s ease;
+    }
+    .hover-lift:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(13,51,89,0.2);
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock %}
