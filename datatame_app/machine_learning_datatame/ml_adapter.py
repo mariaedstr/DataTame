@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import  accuracy_score
+
 
 # Coloque aqui o path relativo/nome da tabela padrão se quiser
 DEFAULT_TABLE = "lutas"
@@ -43,6 +45,7 @@ def gerar_analise_atleta(atleta_nome, db_path, table_name=DEFAULT_TABLE):
       - ponto_fraco: { 'nome': ..., 'titulo': 'O atleta deixa a desejar em:', 'conclusao': '...' }
       - classificacao_final: { 'nome': ..., 'descricao': '...' }
     """
+
     df = carregar_df(db_path, table_name)
     if df is None or df.empty:
         return {
@@ -53,6 +56,7 @@ def gerar_analise_atleta(atleta_nome, db_path, table_name=DEFAULT_TABLE):
             "arma_principal": {"nome": "Sem dados", "titulo": "É definido por:", "analise": "Sem dados"},
             "ponto_fraco": {"nome": "Sem dados", "titulo": "O atleta deixa a desejar em:", "conclusao": "Sem dados"},
             "classificacao_final": {"nome": "Sem dados", "descricao": "Sem dados"},
+            "acuracia": acuracia,
         }
 
     atleta = str(atleta_nome)
@@ -81,6 +85,7 @@ def gerar_analise_atleta(atleta_nome, db_path, table_name=DEFAULT_TABLE):
             "arma_principal": {"nome": "Sem dados", "titulo": "É definido por:", "analise": "Sem dados"},
             "ponto_fraco": {"nome": "Sem dados", "titulo": "O atleta deixa a desejar em:", "conclusao": "Sem dados"},
             "classificacao_final": {"nome": "Sem dados", "descricao": "Sem dados"},
+            "acuracia": acuracia,
         }
 
     # --- calcula importâncias (mantendo a lógica original) ---
@@ -96,7 +101,17 @@ def gerar_analise_atleta(atleta_nome, db_path, table_name=DEFAULT_TABLE):
         else:
             modelo = RandomForestClassifier(n_estimators=100, random_state=42)
             modelo.fit(X_atl, y_atl)
-
+        
+        try:
+            X_train, X_test, y_train, y_test = train_test_split(
+                X_atl, y_atl, test_size=0.3, random_state=42
+            )
+            modelo_acuracia = RandomForestClassifier(n_estimators=100, random_state=42)
+            modelo_acuracia.fit(X_train, y_train)
+            pred = modelo_acuracia.predict(X_test)
+            acuracia = round(accuracy_score(y_test, pred) * 100, 2)
+        except Exception:
+            acuracia = None
         importancias = pd.Series(modelo.feature_importances_, index=features).sort_values(ascending=False)
     except Exception:
         importancias = pd.Series(0, index=features)
@@ -176,6 +191,7 @@ def gerar_analise_atleta(atleta_nome, db_path, table_name=DEFAULT_TABLE):
         "ponto_menos_decisivo": ponto_menos_nome,
         "estilo_atleta": estilo,
         "importancia": importancias.round(4).to_dict() if not importancias.empty else {},
+        "acuracia": acuracia,
 
         # chaves novas/formatadas para frontend
         "arma_principal": {
